@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:fillViewport="true"
+    tools:context="com.surfspotcheck.surfspotcheck.Activities.Login">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="60dp"
+            android:layout_centerHorizontal="true"
+            android:background="@color/colorAccent"
+            android:id="@+id/logo"/>
+        <RelativeLayout
+            android:layout_below="@id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:layout_centerInParent="true">
+            <Button
+                android:layout_centerHorizontal="true"
+                android:id="@+id/btnLoginFacebook"
+                android:background="@color/btnFacebook"
+                android:text="@string/login_facebook"
+                android:textColor="@color/branco"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:layout_marginTop="13dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_below="@+id/btnLoginFacebook"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/btnLoginInstagram"
+                android:background="@color/btnInstagram"
+                android:text="@string/login_instagram"
+                android:textColor="@color/branco"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_below="@id/btnLoginInstagram"
+                android:layout_marginTop="5dp"
+                android:padding="10dp"
+                android:background="@drawable/background_textview"
+                android:textColor="@color/branco"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:id="@+id/login_com_email"
+                android:text="@string/entre_com_email"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_alignParentBottom="true">
+            <TextView
+                android:text="@string/cadastrese"
+                android:textColor="@color/branco"
+                android:id="@+id/register"
+                android:layout_centerInParent="true"
+                android:padding="10dp"
+                android:clickable="true"
+                android:background="@drawable/background_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

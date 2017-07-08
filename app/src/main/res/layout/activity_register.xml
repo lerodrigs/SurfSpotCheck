@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/bg"
+    tools:context="com.surfspotcheck.surfspotcheck.Activities.Register">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp">
+            <EditText
+                android:layout_centerHorizontal="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:hint="@string/nome"
+                android:background="@color/bg_edit_text"
+                android:textColorHint="@color/branco"
+                android:inputType="textPersonName"
+                android:textColor="@color/branco"
+                android:padding="10dp"
+                android:id="@+id/txt_nome"/>
+
+            <EditText
+                android:layout_marginTop="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_below="@id/txt_nome"
+                android:hint="@string/prompt_email"
+                android:textColorHint="@color/branco"
+                android:textColor="@color/branco"
+                android:padding="10dp"
+                android:background="@color/bg_edit_text"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/txt_email"/>
+
+            <EditText
+                android:layout_marginTop="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_below="@id/txt_email"
+                android:hint="@string/prompt_pass"
+                android:textColorHint="@color/branco"
+                android:textColor="@color/branco"
+                android:padding="10dp"
+                android:background="@color/bg_edit_text"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/txt_pass"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_below="@id/txt_pass"
+                android:layout_marginTop="25dp"
+                android:textColor="@color/branco"
+                android:text="@string/cadastrar"
+                android:layout_centerHorizontal="true"
+                android:background="@color/colorAccent"
+                android:id="@+id/btnCadastrar"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:padding="10dp"
+                android:layout_marginTop="10dp"
+                android:clickable="true"
+                android:id="@+id/ja_logado_entrar"
+                android:layout_below="@id/btnCadastrar"
+                android:text="@string/already_registered_login_me"
+                android:textColor="@color/branco"
+                android:background="@drawable/background_textview"
+                android:textStyle="bold"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</ScrollView>

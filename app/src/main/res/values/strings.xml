@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Surf Spot Check</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="login_facebook">Entrar com Facebook</string>
+    <string name="login_instagram">Entrar com Instagram</string>
+    <string name="entre_com_email">Entre com um email.</string>
+    <string name="cadastrese">Cadastre-se!</string>
+    <string name="txt_action">Carregando...</string>
+    <string name="prompt_pass">Senha</string>
+    <string name="forgot_pass">Esqueci minha senha.</string>
+    <string name="login">Login</string>
+    <string name="forgot_pass_ask">Esqueceu sua senha?</string>
+    <string name="txt_forgot_pass">Nós apenas precisamos do seu email de registro para enviar as instruções de reset de senha. </string>
+    <string name="reset_pass">Resetar senha</string>
+    <string name="voltar">Voltar</string>
+    <string name="nome">Nome</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="already_registered_login_me">Já registrado. Entrar!</string>
+</resources>

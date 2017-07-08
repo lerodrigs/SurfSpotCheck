@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+    android:background="@android:color/transparent"
+    android:layout_height="match_parent">
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressbar"
+        android:indeterminate="true"
+        android:layout_centerInParent="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_action"
+        android:layout_margin="15dp"
+        android:layout_below="@id/progressbar"
+        android:id="@+id/txt_action"
+        android:layout_centerInParent="true"/>
+
+</RelativeLayout>
