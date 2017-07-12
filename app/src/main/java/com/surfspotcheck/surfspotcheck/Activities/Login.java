@@ -11,7 +11,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
+import com.surfspotcheck.surfspotcheck.Adapters.DialogLoaderAdapter;
 import com.surfspotcheck.surfspotcheck.R;
+
+import java.sql.Timestamp;
 
 public class Login extends AppCompatActivity {
 
@@ -19,7 +22,6 @@ public class Login extends AppCompatActivity {
     Button buttonInstagram;
     TextView entre_email;
     TextView cadastro;
-    AlertDialog alertDialog;
     AppCompatActivity context;
 
     @Override
@@ -59,16 +61,20 @@ public class Login extends AppCompatActivity {
                 Register();
             }
         });
-
-
     }
 
     public void ClickBtnFacebook()
     {
         Thread facebook = new Thread(new Runnable() {
             @Override
-            public void run() {
-                DialogLoader();
+            public void run()
+            {
+                DialogLoaderAdapter.Loader(context);
+                DialogLoaderAdapter.Show(context, true);
+
+                DialogLoaderAdapter.Show(context, false);
+                Intent main = new Intent(context, Main.class);
+                startActivity(main);
             }
         });
 
@@ -77,10 +83,17 @@ public class Login extends AppCompatActivity {
 
     public void ClickBtnInstagram()
     {
-        Thread instagram = new Thread(new Runnable() {
+        Thread instagram = new Thread(new Runnable()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
+                DialogLoaderAdapter.Loader(context);
+                DialogLoaderAdapter.Show(context, true);
 
+                DialogLoaderAdapter.Show(context, false);
+                Intent main = new Intent(context, Main.class);
+                startActivity(main);
             }
         });
 
@@ -103,28 +116,6 @@ public class Login extends AppCompatActivity {
         {
             Intent register = new Intent(this, Register.class);
             startActivity(register);
-        }
-        catch (Exception e){}
-    }
-
-    public void DialogLoader()
-    {
-        try
-        {
-            this.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    View view = context.getLayoutInflater().inflate(R.layout.view_loader, null);
-
-                    builder.setView(view);
-                    alertDialog = builder.create();
-
-                    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    alertDialog.show();
-                }
-            });
-
         }
         catch (Exception e){}
     }

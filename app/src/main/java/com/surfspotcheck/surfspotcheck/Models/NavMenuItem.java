@@ -13,6 +13,7 @@ public class NavMenuItem
 
     public int position;
     public String name;
+    public int image;
 
     public List<NavMenuItem> getItems()
     {
