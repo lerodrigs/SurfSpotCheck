@@ -20,16 +20,19 @@ public class NavMenuItem
         List<NavMenuItem> nav = new ArrayList<NavMenuItem>();
         NavMenuItem item = new NavMenuItem();
 
-        item.position = 1;
         item.name = "Home";
+        item.position = 1;
         nav.add(item);
 
+        item = new NavMenuItem();
+        item.name = "Maré";
         item.position = 2;
-        item.name = "Mares";
         nav.add(item);
 
-        item.position = 3;
+        item = new NavMenuItem();
         item.name = "Picos";
+        item.position = 3;
+        nav.add(item);
 
         return nav;
     }
