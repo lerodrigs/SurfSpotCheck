@@ -30,8 +30,13 @@ public class NavMenuItem
         nav.add(item);
 
         item = new NavMenuItem();
-        item.name = "Picos";
+        item.name = "Clima tempo";
         item.position = 3;
+        nav.add(item);
+
+        item = new NavMenuItem();
+        item.name = "Picos";
+        item.position = 4;
         nav.add(item);
 
         return nav;

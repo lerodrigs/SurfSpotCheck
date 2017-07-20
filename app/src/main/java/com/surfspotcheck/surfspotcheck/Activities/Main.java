@@ -1,6 +1,7 @@
 package com.surfspotcheck.surfspotcheck.Activities;
 
 import android.app.Activity;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,7 +14,9 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
 import com.surfspotcheck.surfspotcheck.Adapters.NavItemAdapter;
+import com.surfspotcheck.surfspotcheck.Fragments.ClimaTempo;
 import com.surfspotcheck.surfspotcheck.Fragments.Home;
 import com.surfspotcheck.surfspotcheck.Fragments.Mare;
 import com.surfspotcheck.surfspotcheck.Fragments.Pico;
@@ -26,6 +29,7 @@ public class Main extends AppCompatActivity {
 
     ListView  listview;
     DrawerLayout drawerLayout;
+    FloatingActionButton fab;
     public static Toolbar toolbar;
 
     @Override
@@ -48,6 +52,14 @@ public class Main extends AppCompatActivity {
 
         NavItemAdapter adapter = new NavItemAdapter(this, getNavMenu());
         listview = (ListView) nav.findViewById(R.id.listview_menu);
+
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         listview.setAdapter(adapter);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -74,6 +86,9 @@ public class Main extends AppCompatActivity {
                     fragment = Mare.newInstance();
                     break;
                 case 3:
+                    fragment = ClimaTempo.NewInstance();
+                    break;
+                case 4:
                     fragment = Pico.newInstance();
                     break;
             }
