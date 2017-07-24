@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.surfspotcheck.surfspotcheck.Activities.Main;
+import com.surfspotcheck.surfspotcheck.Controllers.ClimaTempoController;
 import com.surfspotcheck.surfspotcheck.R;
 
 public class Home extends Fragment {
@@ -42,6 +43,9 @@ public class Home extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState)
     {
+        ClimaTempoController controller = new ClimaTempoController();
+        controller.getToday();
+
         super.onViewCreated(view, savedInstanceState);
     }
 

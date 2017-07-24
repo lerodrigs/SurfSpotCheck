@@ -65,13 +65,14 @@ public class Main extends AppCompatActivity {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                itemListViewClick(parent, view, position,(int) id);
+                itemListViewClick((int)id);
             }
         });
 
+        itemListViewClick(1);
     }
 
-    public void itemListViewClick(AdapterView<?> parent, View view, int position, int id)
+    public void itemListViewClick(int id)
     {
         try
         {
