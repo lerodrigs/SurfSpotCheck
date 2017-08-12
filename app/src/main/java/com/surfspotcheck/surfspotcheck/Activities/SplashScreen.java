@@ -25,7 +25,8 @@ public class SplashScreen extends Activity {
 
     public void IsLogged()
     {
-        Thread threading = new Thread(new Runnable() {
+        Thread threading = new Thread(new Runnable()
+        {
             @Override
             public void run() {
                 UserLoggedController userLogged = new UserLoggedController(context);

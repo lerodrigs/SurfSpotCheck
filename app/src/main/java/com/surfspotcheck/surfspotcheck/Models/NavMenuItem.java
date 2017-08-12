@@ -1,5 +1,7 @@
 package com.surfspotcheck.surfspotcheck.Models;
 
+import com.surfspotcheck.surfspotcheck.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +24,13 @@ public class NavMenuItem
 
         item.name = "Home";
         item.position = 1;
+        item.image = R.mipmap.home;
         nav.add(item);
 
         item = new NavMenuItem();
         item.name = "Maré";
         item.position = 2;
+
         nav.add(item);
 
         item = new NavMenuItem();

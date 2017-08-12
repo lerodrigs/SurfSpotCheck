@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.surfspotcheck.surfspotcheck.Models.NavMenuItem;
@@ -63,6 +64,9 @@ public class NavItemAdapter extends BaseAdapter {
 
         TextView nome = (TextView) view.findViewById(R.id.nome);
         nome.setText(navItem.name);
+
+        ImageView image = (ImageView) view.findViewById(R.id.img);
+        image.setImageResource(navItem.image);
 
         return view;
     }

@@ -7,13 +7,17 @@ public class ClimaTempo {
     public ClimaTempo() {}
 
     private Date data;
+    private double temp;
     private double tempMin;
     private double tempMax;
     private String direcaoVento;
-    private double velocidadeVento;
+    private String velocidadeVento;
+    private String descricao;
+    private String cidade;
     private byte tempoManha;
     private byte tempoTarde;
     private byte tempoNoite;
+
 
     public void setData(Date _data){
         this.data = _data;
@@ -71,11 +75,35 @@ public class ClimaTempo {
         this.tempoNoite = tempoNoite;
     }
 
-    public double getVelocidadeVento() {
+    public String getVelocidadeVento() {
         return this.velocidadeVento;
     }
 
-    public void setVelocidadeVento(double velocidadeVento) {
+    public void setVelocidadeVento(String velocidadeVento) {
         this.velocidadeVento = velocidadeVento;
+    }
+
+    public void setTemp(double _temp){
+        this.temp = _temp;
+    }
+
+    public double getTemp(){
+        return this.temp;
+    }
+
+    public void setDescricao(String _descricao){
+        this.descricao = _descricao;
+    }
+
+    public String getDescricao(){
+        return this.descricao;
+    }
+
+    public String getCidade() {
+        return this.cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
     }
 }

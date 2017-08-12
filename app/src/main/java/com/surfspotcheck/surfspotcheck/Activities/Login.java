@@ -1,15 +1,13 @@
 package com.surfspotcheck.surfspotcheck.Activities;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 
 import com.surfspotcheck.surfspotcheck.Adapters.DialogLoaderAdapter;
 import com.surfspotcheck.surfspotcheck.R;
