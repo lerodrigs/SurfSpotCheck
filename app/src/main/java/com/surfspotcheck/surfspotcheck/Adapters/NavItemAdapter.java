@@ -15,10 +15,6 @@ import com.surfspotcheck.surfspotcheck.R;
 
 import java.util.List;
 
-/**
- * Created by lerodrigs on 7/10/2017.
- */
-
 public class NavItemAdapter extends BaseAdapter {
 
     List<NavMenuItem> items;

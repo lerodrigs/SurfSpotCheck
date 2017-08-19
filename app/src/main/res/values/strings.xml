@@ -32,5 +32,6 @@
     <string name="max">max: </string>
     <string name="min">min: </string>
     <string name="descricao">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod </string>
+    <string name="data_semana">dd/mm/yyy - Dom</string>
 
 </resources>

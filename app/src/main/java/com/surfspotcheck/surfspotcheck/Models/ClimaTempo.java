@@ -6,18 +6,28 @@ public class ClimaTempo {
 
     public ClimaTempo() {}
 
+    private long id;
     private Date data;
     private double temp;
     private double tempMin;
     private double tempMax;
     private String direcaoVento;
     private String velocidadeVento;
-    private String descricao;
     private String cidade;
     private byte tempoManha;
     private byte tempoTarde;
     private byte tempoNoite;
+    private String descricao;
+    private String condition;
+    private String diaSemana;
 
+    public void setId(long _id){
+        this.id = _id;
+    }
+
+    public long getId(){
+        return this.id;
+    }
 
     public void setData(Date _data){
         this.data = _data;
@@ -105,5 +115,21 @@ public class ClimaTempo {
 
     public void setCidade(String cidade) {
         this.cidade = cidade;
+    }
+
+    public void setCondition(String _condition){
+        this.condition = _condition;
+    }
+
+    public String getCondition(){
+        return this.condition;
+    }
+
+    public void setDiaSemana(String _diaSemana){
+        this.diaSemana = _diaSemana;
+    }
+
+    public String getDiaSemana(){
+        return this.diaSemana;
     }
 }
