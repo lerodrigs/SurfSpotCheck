@@ -126,6 +126,10 @@ public class ClimaTempo {
     }
 
     public void setDiaSemana(String _diaSemana){
+        switch(_diaSemana){
+            case "Sab":
+                break;
+        }
         this.diaSemana = _diaSemana;
     }
 

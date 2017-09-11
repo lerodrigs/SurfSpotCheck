@@ -1,11 +1,16 @@
 package com.surfspotcheck.surfspotcheck.Activities;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.v4.view.ViewCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatCallback;
 
+import com.surfspotcheck.surfspotcheck.Controllers.LocationController;
 import com.surfspotcheck.surfspotcheck.Controllers.UserLoggedController;
 import com.surfspotcheck.surfspotcheck.R;
 
@@ -20,7 +25,7 @@ public class SplashScreen extends Activity {
         setContentView(R.layout.activity_splash_screen);
 
         context = this;
-        IsLogged();
+        //IsLogged();
     }
 
     public void IsLogged()
@@ -28,7 +33,8 @@ public class SplashScreen extends Activity {
         Thread threading = new Thread(new Runnable()
         {
             @Override
-            public void run() {
+            public void run()
+            {
                 UserLoggedController userLogged = new UserLoggedController(context);
 
                 if(userLogged.GetId() == 0 )
@@ -43,4 +49,6 @@ public class SplashScreen extends Activity {
 
         threading.start();
     }
+
+
 }

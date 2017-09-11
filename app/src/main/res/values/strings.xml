@@ -33,5 +33,11 @@
     <string name="min">min: </string>
     <string name="descricao">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod </string>
     <string name="data_semana">dd/mm/yyy - Dom</string>
+    <string name="city">Cidade</string>
+    <string name="temp">20º</string>
+    <string name="nascer_sol">Nascer do sol: </string>
+    <string name="por_sol">Por do sol: </string>
+    <string name="umidade">Umidade: </string>
+    <string name="velocidade_vento">Vento: </string>
 
 </resources>
