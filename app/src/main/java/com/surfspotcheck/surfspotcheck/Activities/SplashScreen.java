@@ -25,7 +25,7 @@ public class SplashScreen extends Activity {
         setContentView(R.layout.activity_splash_screen);
 
         context = this;
-        //IsLogged();
+        IsLogged();
     }
 
     public void IsLogged()
@@ -36,19 +36,22 @@ public class SplashScreen extends Activity {
             public void run()
             {
                 UserLoggedController userLogged = new UserLoggedController(context);
+                Intent intent = null;
 
                 if(userLogged.GetId() == 0 )
                 {
-                    Intent login = new Intent(context, Login.class);
-
-                    startActivity(login);
-                    finish();
+                    intent = new Intent(context, Login.class);
                 }
+                else
+                {
+                    intent = new Intent(context, Main.class);
+                }
+
+                startActivity(intent);
+                finish();
             }
         });
 
         threading.start();
     }
-
-
 }

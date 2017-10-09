@@ -1,6 +1,5 @@
 package com.surfspotcheck.surfspotcheck.Activities;
 
-import android.app.Activity;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -10,16 +9,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
-import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.surfspotcheck.surfspotcheck.Adapters.NavItemAdapter;
-import com.surfspotcheck.surfspotcheck.Fragments.ClimaTempo;
-import com.surfspotcheck.surfspotcheck.Fragments.Home;
-import com.surfspotcheck.surfspotcheck.Fragments.Mare;
-import com.surfspotcheck.surfspotcheck.Fragments.Pico;
+import com.surfspotcheck.surfspotcheck.Fragments.ClimaTempoFragment;
+import com.surfspotcheck.surfspotcheck.Fragments.HomeFragment;
+import com.surfspotcheck.surfspotcheck.Fragments.MareFragment;
+import com.surfspotcheck.surfspotcheck.Fragments.PicoFragment;
 import com.surfspotcheck.surfspotcheck.Models.NavMenuItem;
 import com.surfspotcheck.surfspotcheck.R;
 
@@ -39,7 +37,7 @@ public class Main extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Home");
+        toolbar.setTitle("HomeFragment");
         setSupportActionBar(toolbar);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -81,16 +79,16 @@ public class Main extends AppCompatActivity {
             switch (id)
             {
                 case 1:
-                    fragment = Home.newInstance();
+                    fragment = HomeFragment.newInstance();
                     break;
                 case 2:
-                    fragment = Mare.newInstance();
+                    fragment = MareFragment.newInstance();
                     break;
                 case 3:
-                    fragment = ClimaTempo.NewInstance();
+                    fragment = ClimaTempoFragment.NewInstance();
                     break;
                 case 4:
-                    fragment = Pico.newInstance();
+                    fragment = PicoFragment.newInstance();
                     break;
             }
 

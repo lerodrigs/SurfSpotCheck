@@ -1,6 +1,5 @@
 package com.surfspotcheck.surfspotcheck.Fragments;
 
-
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,19 +8,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.surfspotcheck.surfspotcheck.Activities.Main;
-import com.surfspotcheck.surfspotcheck.Controllers.ClimaTempoController;
 import com.surfspotcheck.surfspotcheck.R;
 
-public class Home extends Fragment {
+public class MareFragment extends Fragment {
 
-    public Home()
+    public MareFragment()
     {
         // Required empty public constructor
     }
 
-    public static Home newInstance()
+    public static MareFragment newInstance()
     {
-        Home fragment = new Home();
+        MareFragment fragment = new MareFragment();
         fragment.setArguments(new Bundle());
 
         return fragment;
@@ -36,18 +34,17 @@ public class Home extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        Main.toolbar.setTitle("Home");
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        Main.toolbar.setTitle("Maré");
+        return inflater.inflate(R.layout.fragment_mare, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState)
     {
-        ClimaTempoController controller = new ClimaTempoController();
-        controller.getToday();
 
         super.onViewCreated(view, savedInstanceState);
     }
+
 
     @Override
     public void onAttach(Context context)

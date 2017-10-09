@@ -22,7 +22,7 @@ public class NavMenuItem
         List<NavMenuItem> nav = new ArrayList<NavMenuItem>();
         NavMenuItem item = new NavMenuItem();
 
-        item.name = "Home";
+        item.name = "HomeFragment";
         item.position = 1;
         item.image = R.mipmap.home;
         nav.add(item);
