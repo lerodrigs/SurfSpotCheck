@@ -8,9 +8,9 @@ public class ClimaTempo {
 
     private long id;
     private Date data;
-    private double temp;
-    private double tempMin;
-    private double tempMax;
+    private int temp;
+    private int tempMin;
+    private int tempMax;
     private String direcaoVento;
     private String velocidadeVento;
     private String cidade;
@@ -20,6 +20,8 @@ public class ClimaTempo {
     private String descricao;
     private String condition;
     private String diaSemana;
+    private String conditionSlug;
+    private int umidade;
 
     public void setId(long _id){
         this.id = _id;
@@ -37,19 +39,19 @@ public class ClimaTempo {
         return this.data;
     }
 
-    public void setTempMin(double _temp_min){
+    public void setTempMin(int _temp_min){
         this.tempMin = _temp_min;
     }
 
-    public double getTempMin(){
+    public int getTempMin(){
         return this.tempMin;
     }
 
-    public void setTempMax(double _temp_max){
+    public void setTempMax(int _temp_max){
         this.tempMax = _temp_max;
     }
 
-    public double getTempMax(){
+    public int getTempMax(){
         return this.tempMax;
     }
 
@@ -85,7 +87,8 @@ public class ClimaTempo {
         this.tempoNoite = tempoNoite;
     }
 
-    public String getVelocidadeVento() {
+    public String getVelocidadeVento()
+    {
         return this.velocidadeVento;
     }
 
@@ -93,11 +96,11 @@ public class ClimaTempo {
         this.velocidadeVento = velocidadeVento;
     }
 
-    public void setTemp(double _temp){
+    public void setTemp(int _temp){
         this.temp = _temp;
     }
 
-    public double getTemp(){
+    public int getTemp(){
         return this.temp;
     }
 
@@ -125,15 +128,32 @@ public class ClimaTempo {
         return this.condition;
     }
 
-    public void setDiaSemana(String _diaSemana){
-        switch(_diaSemana){
-            case "Sab":
-                break;
-        }
+    public void setDiaSemana(String _diaSemana)
+    {
         this.diaSemana = _diaSemana;
     }
 
     public String getDiaSemana(){
         return this.diaSemana;
+    }
+
+    public String getConditionSlug()
+    {
+        return this.conditionSlug;
+    }
+
+    public void setConditionSlug(String _conditionSlug)
+    {
+        this.conditionSlug = _conditionSlug;
+    }
+
+    public int getUmidade()
+    {
+        return this.umidade;
+    }
+
+    public void setUmidade(int _umidade)
+    {
+        this.umidade = _umidade;
     }
 }

@@ -36,17 +36,14 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        Main.toolbar.setTitle("HomeFragment");
+        Main.toolbar.setTitle("Home");
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState)
     {
-        ClimaTempoController controller = new ClimaTempoController();
-        controller.getToday();
-
-        super.onViewCreated(view, savedInstanceState);
+       super.onViewCreated(view, savedInstanceState);
     }
 
     @Override

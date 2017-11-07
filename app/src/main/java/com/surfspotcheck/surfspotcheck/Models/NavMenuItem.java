@@ -22,24 +22,27 @@ public class NavMenuItem
         List<NavMenuItem> nav = new ArrayList<NavMenuItem>();
         NavMenuItem item = new NavMenuItem();
 
-        item.name = "HomeFragment";
+        item.name = "Home";
         item.position = 1;
         item.image = R.mipmap.home;
         nav.add(item);
 
         item = new NavMenuItem();
         item.name = "Maré";
+        item.image = R.mipmap.icon_mares;
         item.position = 2;
 
         nav.add(item);
 
         item = new NavMenuItem();
-        item.name = "Clima tempo";
+        item.name = "Previsão do Tempo";
         item.position = 3;
+        item.image = R.mipmap.icon_clima_tempo;
         nav.add(item);
 
         item = new NavMenuItem();
         item.name = "Picos";
+        item.image = R.mipmap.icon_picos;
         item.position = 4;
         nav.add(item);
 

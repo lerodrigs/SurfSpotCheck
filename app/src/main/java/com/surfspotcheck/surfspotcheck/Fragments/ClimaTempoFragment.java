@@ -1,17 +1,24 @@
 package com.surfspotcheck.surfspotcheck.Fragments;
 
-
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.surfspotcheck.surfspotcheck.Adapters.ClimaTempoTodayAdapter;
 import com.surfspotcheck.surfspotcheck.Adapters.ListaClimaTempoAdapter;
 import com.surfspotcheck.surfspotcheck.Models.*;
 import com.surfspotcheck.surfspotcheck.Activities.Main;
@@ -27,11 +34,13 @@ import java.util.List;
 
 public class ClimaTempoFragment extends Fragment {
 
-    SwipeRefreshLayout refreshLayout;
+    //SwipeRefreshLayout refreshLayout;
+    static RelativeLayout relativeLayout;
     static List<ClimaTempo> list;
     static ProgressBar progressBar;
     static ListView listView;
     static android.app.Activity context;
+    static RelativeLayout rel_progress_bar;
 
     public static ClimaTempoFragment NewInstance()
     {
@@ -51,21 +60,24 @@ public class ClimaTempoFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Main.toolbar.setTitle("Clima tempo");
+        Main.toolbar.setTitle("Previsão do Tempo");
         return inflater.inflate(R.layout.fragment_clima_tempo, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState)
     {
+        relativeLayout = (RelativeLayout) view.findViewById(R.id.rel_clima_tempo);
 
-        refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresher);
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        rel_progress_bar = (RelativeLayout) view.findViewById(R.id.rel_progress_bar);
+
+        /*refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresher);
+        //refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
 
             }
-        });
+        });*/
 
         listView = (ListView) view.findViewById(R.id.listview);
         listView.setItemsCanFocus(false);
@@ -80,30 +92,40 @@ public class ClimaTempoFragment extends Fragment {
         });
 
         progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
-        getListClimaTempo();
+        getListClimaTempo(null);
 
         super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(Context context)
+    {
         super.onAttach(context);
     }
 
-    public static void SetVisibilityProgressBar(final boolean visible) {
+    public static void SetVisibilityProgressBar(final boolean visible)
+    {
         context.runOnUiThread(new Runnable()
         {
             @Override
-            public void run() {
+            public void run()
+            {
                 if (visible)
-                    progressBar.setVisibility(View.VISIBLE);
+                {
+                    rel_progress_bar.setVisibility(View.VISIBLE);
+                    relativeLayout.setVisibility(View.GONE);
+                }
                 else
-                    progressBar.setVisibility(View.GONE);
+                {
+                    relativeLayout.setVisibility(View.VISIBLE);
+                    rel_progress_bar.setVisibility(View.GONE);
+                }
+
             }
         });
     }
 
-    public static List<ClimaTempo> getListClimaTempo()
+    public static List<ClimaTempo> getListClimaTempo(final Date date)
     {
         try
         {
@@ -115,8 +137,8 @@ public class ClimaTempoFragment extends Fragment {
                 public void run()
                 {
 
-                    List<ClimaTempo> _list = new ClimaTempoController().getToday();
-                    ClimaTempo objRemove = null;
+                    List<ClimaTempo> _list = new ClimaTempoController().getToday(date);
+                    ClimaTempo climaTempoToday = null;
 
                     Calendar calendar = Calendar.getInstance();
                     Date hoje = calendar.getTime();
@@ -127,13 +149,16 @@ public class ClimaTempoFragment extends Fragment {
 
                         if(data.getDate() == hoje.getDate())
                         {
-                            objRemove = obj;
+                            climaTempoToday = obj;
                         }
                     }
 
-                    if(objRemove != null)
+                    if(climaTempoToday != null)
                     {
-                        _list.remove(objRemove);
+                        ClimaTempoTodayAdapter climaTempoTodayAdapter = new ClimaTempoTodayAdapter(context, climaTempoToday, relativeLayout);
+
+                        climaTempoTodayAdapter.UpdateClimaTempoItem();
+                        _list.remove(climaTempoToday);
                     }
 
                     setList(_list);
@@ -143,7 +168,6 @@ public class ClimaTempoFragment extends Fragment {
             });
 
             thread.start();
-
         }
         catch (Exception e){ }
 

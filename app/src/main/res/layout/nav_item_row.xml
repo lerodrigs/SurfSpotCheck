@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="@android:color/transparent"
     android:layout_height="match_parent"
-    android:minHeight="70dp">
+    android:minHeight="50dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,10 +17,10 @@
         android:layout_alignParentStart="true">
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_centerVertical="true"
-            android:src="@android:drawable/ic_menu_mapmode"
+            android:src="@mipmap/icon_clima_tempo"
             android:layout_marginLeft="20dp"
             android:id="@+id/img" />
 
@@ -32,7 +32,8 @@
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/img"
             android:text="@string/app_name"
-            android:textColor="#BBB"
+            android:textSize="14dp"
+            android:textColor="@color/primary_text"
             tools:layout_toRightOf="@+id/img" />
 
     </RelativeLayout>
