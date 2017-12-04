@@ -5,10 +5,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatCallback;
+import android.util.Log;
 
 import com.surfspotcheck.surfspotcheck.Controllers.LocationController;
 import com.surfspotcheck.surfspotcheck.Controllers.UserLoggedController;
@@ -18,6 +20,9 @@ public class SplashScreen extends Activity {
 
     public static Activity context;
 
+    AlertDialog alertDialog;
+    LocationController locationController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -25,33 +30,61 @@ public class SplashScreen extends Activity {
         setContentView(R.layout.activity_splash_screen);
 
         context = this;
-        IsLogged();
+        alertDialog = null;
+
+        try
+        {
+            IsLogged();
+        }
+        catch (Exception e )
+        {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+
+        try
+        {
+            IsLogged();
+        }
+        catch (Exception e )
+        {
+            e.printStackTrace();
+        }
     }
 
     public void IsLogged()
     {
-        Thread threading = new Thread(new Runnable()
+        try
         {
-            @Override
-            public void run()
+            Thread threading = new Thread(new Runnable()
             {
-                UserLoggedController userLogged = new UserLoggedController(context);
-                Intent intent = null;
-
-                if(userLogged.GetId() == 0 )
+                @Override
+                public void run()
                 {
-                    intent = new Intent(context, Login.class);
-                }
-                else
-                {
-                    intent = new Intent(context, Main.class);
-                }
 
-                startActivity(intent);
-                finish();
-            }
-        });
+                    UserLoggedController userLogged = new UserLoggedController(context);
+                    Intent intent = null;
 
-        threading.start();
+                    if(userLogged.getUserLogged() != null )
+                        intent = new Intent(context, Login.class);
+                    else
+                        intent = new Intent(context, Main.class);
+
+                    startActivity(intent);
+                    finish();
+                }
+            });
+
+            threading.start();
+        }
+        catch (Exception e )
+        {
+            e.printStackTrace();
+        }
     }
 }

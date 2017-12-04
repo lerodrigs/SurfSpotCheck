@@ -21,20 +21,24 @@ import javax.xml.transform.Result;
 
 public class  ClimaTempoRequest
 {
-    public static List<ClimaTempo> getListToday(Date date)
+    public static List<ClimaTempo> getListToday(Date date, String ip, String lat, String lon)
     {
         List<ClimaTempo> list = new ArrayList<ClimaTempo>();
 
         try
         {
-
             HttpURLConnection connection;
+
             URL url = null;
+
+            if(lat != null && lon != null)
+                url = new URL ("https://api.hgbrasil.com/weather/?format=json&lat="+lat+"&lon="+lon+"&user_ip="+ip+"&key=fdf57e1a");
+            else
+                url = new URL ("https://api.hgbrasil.com/weather/?format=json&user_ip="+ip+"&key=fdf57e1a");
+
 
             if(date == null)
             {
-                url = new URL("https://api.hgbrasil.com/weather/?format=json&woeid=455952");
-
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
                 connection.setReadTimeout(15000);

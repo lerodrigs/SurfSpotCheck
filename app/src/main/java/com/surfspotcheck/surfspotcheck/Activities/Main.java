@@ -1,13 +1,26 @@
 package com.surfspotcheck.surfspotcheck.Activities;
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.ClipData;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -23,10 +36,12 @@ import android.widget.DatePicker;
 import android.widget.ListView;
 
 import com.surfspotcheck.surfspotcheck.Adapters.NavItemAdapter;
+import com.surfspotcheck.surfspotcheck.Controllers.LocationController;
 import com.surfspotcheck.surfspotcheck.Fragments.ClimaTempoFragment;
 import com.surfspotcheck.surfspotcheck.Fragments.HomeFragment;
 import com.surfspotcheck.surfspotcheck.Fragments.MareFragment;
 import com.surfspotcheck.surfspotcheck.Fragments.PicoFragment;
+import com.surfspotcheck.surfspotcheck.Listeners.MyLocationListener;
 import com.surfspotcheck.surfspotcheck.Models.NavMenuItem;
 import com.surfspotcheck.surfspotcheck.R;
 
@@ -37,10 +52,15 @@ import java.util.List;
 
 public class Main extends AppCompatActivity {
 
-    ListView  listview;
+    ListView listview;
     DrawerLayout drawerLayout;
     FloatingActionButton fab;
+    Activity context;
     public static Toolbar toolbar;
+
+    LocationController locationController;
+    LocationManager locationManager;
+    int LOCATION_REQUISTION = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -48,12 +68,13 @@ public class Main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        context = this;
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toogle = new ActionBarDrawerToggle(
-                this, drawerLayout, toolbar, R.string.open, R.string.close);
+        ActionBarDrawerToggle toogle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
         drawerLayout.setDrawerListener(toogle);
         toogle.syncState();
 
@@ -71,14 +92,42 @@ public class Main extends AppCompatActivity {
         });
 
         listview.setAdapter(adapter);
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                itemListViewClick((int)id);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                itemListViewClick((int) id);
             }
         });
 
         itemListViewClick(1);
+
+        try
+        {
+            locationController = new LocationController(context);
+            locationController.locationVerification();
+
+            MyLocationListener myLocationListener = new MyLocationListener(context);
+        }
+        catch (Exception e )
+        {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if(requestCode == LOCATION_REQUISTION)
+        {
+            if(locationController == null)
+            {
+                locationController= new LocationController(context);
+            }
+
+            locationController.locationVerification();
+        }
     }
 
     @Override
@@ -90,20 +139,11 @@ public class Main extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item)
             {
-                showDialog(1); //Mostra dialog datePicker
+                showDialog(1);
 
                 return false;
             }
         });
-
-        /*for(int i = 0; i < menu.size(); i++){
-
-            Drawable drawable = menu.getItem(i).getIcon();
-            if(drawable != null) {
-                drawable.mutate();
-                drawable.setColorFilter(getResources().getColor(R.color.branco), PorterDuff.Mode.SRC_ATOP);
-            }
-        }*/
 
         return true;
     }
@@ -119,7 +159,8 @@ public class Main extends AppCompatActivity {
             int month = calendar.get(Calendar.MONTH);
             int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-            return new DatePickerDialog(this, myDateListener, year, month+1, day);
+
+            return new DatePickerDialog(this, R.style.CustomDialogTheme, myDateListener, year, month+1, day);
         }
 
         return null;
@@ -133,17 +174,7 @@ public class Main extends AppCompatActivity {
             Calendar calendar = Calendar.getInstance();
 
             calendar.set(ano, mes, day);
-            final Date escolhida = calendar.getTime();
-
-            Thread novaData = new Thread(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    ClimaTempoFragment.getListClimaTempo(escolhida);
-                }
-            });
-            novaData.start();
+            Date escolhida = calendar.getTime();
         }
     };
 
@@ -184,4 +215,5 @@ public class Main extends AppCompatActivity {
         NavMenuItem navItem = new NavMenuItem();
         return navItem.getItems();
     }
+
 }

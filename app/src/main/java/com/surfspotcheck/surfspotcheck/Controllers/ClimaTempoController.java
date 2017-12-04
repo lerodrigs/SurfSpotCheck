@@ -10,11 +10,11 @@ import java.util.List;
 
 public class ClimaTempoController {
 
-    public List<ClimaTempo> getToday(Date date)
+    public List<ClimaTempo> getToday(Date date, String ip, String lat, String lon)
     {
         try
         {
-            return ClimaTempoRequest.getListToday(date);
+            return ClimaTempoRequest.getListToday(date, ip, lat, lon);
         }
         catch (Exception e){ return null; }
     }

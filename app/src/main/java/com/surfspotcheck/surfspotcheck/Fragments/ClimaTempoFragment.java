@@ -82,17 +82,8 @@ public class ClimaTempoFragment extends Fragment {
         listView = (ListView) view.findViewById(R.id.listview);
         listView.setItemsCanFocus(false);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-
-            }
-        });
-
         progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
-        getListClimaTempo(null);
+        //getListClimaTempo(null);
 
         super.onViewCreated(view, savedInstanceState);
     }
@@ -125,7 +116,7 @@ public class ClimaTempoFragment extends Fragment {
         });
     }
 
-    public static List<ClimaTempo> getListClimaTempo(final Date date)
+    public static List<ClimaTempo> getListClimaTempo(final Date date, final String ip, final String lat, final String lon)
     {
         try
         {
@@ -137,7 +128,7 @@ public class ClimaTempoFragment extends Fragment {
                 public void run()
                 {
 
-                    List<ClimaTempo> _list = new ClimaTempoController().getToday(date);
+                    List<ClimaTempo> _list = new ClimaTempoController().getToday(date, ip,lat,lon);
                     ClimaTempo climaTempoToday = null;
 
                     Calendar calendar = Calendar.getInstance();
