@@ -1,5 +1,7 @@
 package com.surfspotcheck.surfspotcheck.Models;
 
+import java.util.Date;
+
 /**
  * Created by chibs on 03/12/17.
  */
@@ -11,6 +13,7 @@ public class LocationMyModel
 
     }
 
+    public Date data_hora;
     public String ip_adress;
     public String longitude;
     public String latitude;
@@ -56,6 +59,14 @@ public class LocationMyModel
         return this.providerName;
     }
 
+    public void setData_hora(Date _data_hora)
+    {
+        this.data_hora = _data_hora;
+    }
 
+    public Date getData_hora()
+    {
+        return this.data_hora;
+    }
 
 }

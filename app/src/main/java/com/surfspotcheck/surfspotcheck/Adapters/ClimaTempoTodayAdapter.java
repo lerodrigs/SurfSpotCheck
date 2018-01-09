@@ -88,7 +88,6 @@ public class ClimaTempoTodayAdapter
                         default:
                             //colocar imagem null
                             break;
-
                     }
                 }
             });

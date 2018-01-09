@@ -1,18 +1,10 @@
 package com.surfspotcheck.surfspotcheck.Activities;
 
+import android.Manifest;
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatCallback;
-import android.util.Log;
 
-import com.surfspotcheck.surfspotcheck.Controllers.LocationController;
 import com.surfspotcheck.surfspotcheck.Controllers.UserLoggedController;
 import com.surfspotcheck.surfspotcheck.R;
 
@@ -20,20 +12,18 @@ public class SplashScreen extends Activity {
 
     public static Activity context;
 
-    AlertDialog alertDialog;
-    LocationController locationController;
+    int MY_PERMISSION_ACCESS_FILE_LOCATION = 1;
+    int MY_PERMISSION_ACCESS_COARSE_LOCATION = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
-
-        context = this;
-        alertDialog = null;
-
         try
         {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_splash_screen);
+
+            context = this;
             IsLogged();
         }
         catch (Exception e )
@@ -46,15 +36,6 @@ public class SplashScreen extends Activity {
     public void onResume()
     {
         super.onResume();
-
-        try
-        {
-            IsLogged();
-        }
-        catch (Exception e )
-        {
-            e.printStackTrace();
-        }
     }
 
     public void IsLogged()
@@ -68,12 +49,12 @@ public class SplashScreen extends Activity {
                 {
 
                     UserLoggedController userLogged = new UserLoggedController(context);
-                    Intent intent = null;
+                    Intent intent;
 
-                    if(userLogged.getUserLogged() != null )
-                        intent = new Intent(context, Login.class);
-                    else
+                    if(userLogged.getUserLogged())
                         intent = new Intent(context, Main.class);
+                    else
+                        intent = new Intent(context, Login.class);
 
                     startActivity(intent);
                     finish();

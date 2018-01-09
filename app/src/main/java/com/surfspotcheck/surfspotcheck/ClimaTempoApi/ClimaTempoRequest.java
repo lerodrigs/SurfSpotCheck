@@ -36,7 +36,6 @@ public class  ClimaTempoRequest
             else
                 url = new URL ("https://api.hgbrasil.com/weather/?format=json&user_ip="+ip+"&key=fdf57e1a");
 
-
             if(date == null)
             {
                 connection = (HttpURLConnection) url.openConnection();
@@ -57,7 +56,7 @@ public class  ClimaTempoRequest
             }
             else
             {
-
+                //
             }
 
             return list;

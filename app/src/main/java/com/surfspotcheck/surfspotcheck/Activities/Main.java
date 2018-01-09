@@ -2,21 +2,11 @@ package com.surfspotcheck.surfspotcheck.Activities;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.ClipData;
-import android.content.DialogInterface;
 import android.content.Intent;
+
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -55,60 +45,66 @@ public class Main extends AppCompatActivity {
     ListView listview;
     DrawerLayout drawerLayout;
     FloatingActionButton fab;
-    Activity context;
+    public static Activity context;
     public static Toolbar toolbar;
 
     LocationController locationController;
-    LocationManager locationManager;
     int LOCATION_REQUISTION = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        context = this;
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toogle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
-        drawerLayout.setDrawerListener(toogle);
-        toogle.syncState();
-
-        NavigationView nav = (NavigationView) findViewById(R.id.nav_view);
-
-        NavItemAdapter adapter = new NavItemAdapter(this, getNavMenu());
-        listview = (ListView) nav.findViewById(R.id.listview_menu);
-
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        listview.setAdapter(adapter);
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                itemListViewClick((int) id);
-            }
-        });
-
-        itemListViewClick(1);
-
         try
         {
-            locationController = new LocationController(context);
-            locationController.locationVerification();
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
 
-            MyLocationListener myLocationListener = new MyLocationListener(context);
+            Main.context = this;
+
+            if(ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+            {
+                ActivityCompat.requestPermissions(context, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            }
+
+            if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+            {
+                ActivityCompat.requestPermissions(context, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 2);
+            }
+
+            toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+
+            drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+            ActionBarDrawerToggle toogle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
+            drawerLayout.setDrawerListener(toogle);
+            toogle.syncState();
+
+            NavigationView nav = (NavigationView) findViewById(R.id.nav_view);
+
+            NavItemAdapter adapter = new NavItemAdapter(this, getNavMenu());
+            listview = (ListView) nav.findViewById(R.id.listview_menu);
+
+            fab = (FloatingActionButton) findViewById(R.id.fab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+
+            listview.setAdapter(adapter);
+            listview.setOnItemClickListener(new AdapterView.OnItemClickListener()
+            {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+                {
+                    itemListViewClick((int) id);
+                }
+            });
+
+            itemListViewClick(1);
+
+            MyLocationListener locationListener = new MyLocationListener(Main.context);
         }
         catch (Exception e )
         {
@@ -126,13 +122,13 @@ public class Main extends AppCompatActivity {
                 locationController= new LocationController(context);
             }
 
-            locationController.locationVerification();
+            locationController.requestLocation();
         }
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         getMenuInflater().inflate(R.menu.menu, menu);
         menu.findItem(R.id.calendario).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener()
         {
@@ -207,7 +203,9 @@ public class Main extends AppCompatActivity {
             drawerLayout.closeDrawer(GravityCompat.START, true);
         }
         catch (Exception e )
-        {}
+        {
+            e.printStackTrace();
+        }
     }
 
     private List<NavMenuItem> getNavMenu()

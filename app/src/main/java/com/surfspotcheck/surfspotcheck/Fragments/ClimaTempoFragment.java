@@ -1,32 +1,23 @@
 package com.surfspotcheck.surfspotcheck.Fragments;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.DatePicker;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.surfspotcheck.surfspotcheck.Adapters.ClimaTempoTodayAdapter;
 import com.surfspotcheck.surfspotcheck.Adapters.ListaClimaTempoAdapter;
+import com.surfspotcheck.surfspotcheck.Controllers.LocationController;
 import com.surfspotcheck.surfspotcheck.Models.*;
 import com.surfspotcheck.surfspotcheck.Activities.Main;
 import com.surfspotcheck.surfspotcheck.Controllers.ClimaTempoController;
 import com.surfspotcheck.surfspotcheck.R;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -34,22 +25,34 @@ import java.util.List;
 
 public class ClimaTempoFragment extends Fragment {
 
-    //SwipeRefreshLayout refreshLayout;
     static RelativeLayout relativeLayout;
     static List<ClimaTempo> list;
     static ProgressBar progressBar;
     static ListView listView;
     static android.app.Activity context;
     static RelativeLayout rel_progress_bar;
+    static LocationMyModel locationMyModel;
+    static LocationController locationController;
 
     public static ClimaTempoFragment NewInstance()
     {
-        ClimaTempoFragment fragment = new ClimaTempoFragment();
-        fragment.setArguments(new Bundle());
+        try
+        {
+            ClimaTempoFragment fragment = new ClimaTempoFragment();
+            fragment.setArguments(new Bundle());
 
-        list = new ArrayList<ClimaTempo>();
+            context = Main.context;
 
-        return fragment;
+            list = new ArrayList<ClimaTempo>();
+            locationController = new LocationController(context);
+
+            return fragment;
+        }
+        catch (Exception e )
+        {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
@@ -59,7 +62,8 @@ public class ClimaTempoFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         Main.toolbar.setTitle("Previsão do Tempo");
         return inflater.inflate(R.layout.fragment_clima_tempo, container, false);
     }
@@ -67,23 +71,16 @@ public class ClimaTempoFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState)
     {
+        getLocationMyModel();
+
         relativeLayout = (RelativeLayout) view.findViewById(R.id.rel_clima_tempo);
-
         rel_progress_bar = (RelativeLayout) view.findViewById(R.id.rel_progress_bar);
-
-        /*refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresher);
-        //refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-
-            }
-        });*/
 
         listView = (ListView) view.findViewById(R.id.listview);
         listView.setItemsCanFocus(false);
 
         progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
-        //getListClimaTempo(null);
+        getListClimaTempo(null);
 
         super.onViewCreated(view, savedInstanceState);
     }
@@ -96,43 +93,70 @@ public class ClimaTempoFragment extends Fragment {
 
     public static void SetVisibilityProgressBar(final boolean visible)
     {
-        context.runOnUiThread(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                if (visible)
-                {
-                    rel_progress_bar.setVisibility(View.VISIBLE);
-                    relativeLayout.setVisibility(View.GONE);
-                }
-                else
-                {
-                    relativeLayout.setVisibility(View.VISIBLE);
-                    rel_progress_bar.setVisibility(View.GONE);
-                }
-
-            }
-        });
-    }
-
-    public static List<ClimaTempo> getListClimaTempo(final Date date, final String ip, final String lat, final String lon)
-    {
         try
         {
-            SetVisibilityProgressBar(true);
-
-            Thread thread = new Thread(new Runnable()
+            context.runOnUiThread(new Runnable()
             {
                 @Override
                 public void run()
                 {
+                    if (visible)
+                    {
+                        rel_progress_bar.setVisibility(View.VISIBLE);
+                        relativeLayout.setVisibility(View.GONE);
+                    }
+                    else
+                    {
+                        relativeLayout.setVisibility(View.VISIBLE);
+                        rel_progress_bar.setVisibility(View.GONE);
+                    }
 
-                    List<ClimaTempo> _list = new ClimaTempoController().getToday(date, ip,lat,lon);
+                }
+            });
+        }
+        catch (Exception e )
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static LocationMyModel getLocationMyModel()
+    {
+        try
+        {
+            locationMyModel = locationController.getLastLocation();
+            return locationMyModel;
+        }
+        catch (Exception e )
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static List<ClimaTempo> getListClimaTempo(final Date date)
+    {
+        SetVisibilityProgressBar(true);
+
+        Thread thread = new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                try
+                {
+                    ClimaTempoController climaTempoContorller = new ClimaTempoController(context);
+
+                    List<ClimaTempo> _list = climaTempoContorller.getToday(date, locationMyModel);
                     ClimaTempo climaTempoToday = null;
 
                     Calendar calendar = Calendar.getInstance();
-                    Date hoje = calendar.getTime();
+                    Date hoje = null;
+
+                    if(date == null)
+                        hoje = calendar.getTime();
+                    else
+                        hoje = date;
 
                     for (ClimaTempo obj: _list )
                     {
@@ -156,11 +180,14 @@ public class ClimaTempoFragment extends Fragment {
                     UpdateListView();
                     SetVisibilityProgressBar(false);
                 }
-            });
+                catch (Exception e )
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
 
-            thread.start();
-        }
-        catch (Exception e){ }
+        thread.start();
 
         return getList();
     }

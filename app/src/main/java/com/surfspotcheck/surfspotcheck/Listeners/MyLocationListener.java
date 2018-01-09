@@ -14,16 +14,12 @@ import com.surfspotcheck.surfspotcheck.Controllers.SharedPreferencesController;
 public class MyLocationListener implements LocationListener
 {
     Activity context;
-    LocationController locationController;
-    LocationManager locationManager;
     SharedPreferencesController sharedPreferencesController;
 
     public MyLocationListener(Activity _context)
     {
         context = _context;
-        locationController = new LocationController(context);
         sharedPreferencesController = new SharedPreferencesController(context);
-        locationManager = locationController.getLocationManager();
     }
 
     public LocationListener getLocationListener()
@@ -34,8 +30,7 @@ public class MyLocationListener implements LocationListener
     @Override
     public void onLocationChanged(Location location)
     {
-        Double lat = location.getLatitude();
-        Double lon = location.getLongitude();
+
     }
 
     @Override
